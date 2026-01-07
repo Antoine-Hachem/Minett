@@ -1,0 +1,616 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Minecraft Pro Hub — Building, Ores, Redstone, Tips & More</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Everything you need to master Minecraft: building charts, ore levels, redstone basics, survival tips, farms, and more." />
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #171922;
+      --text: #e6e6e6;
+      --muted: #a8adbd;
+      --accent: #6bd679;
+      --accent-2: #59a6ff;
+      --danger: #ff5e7c;
+      --gold: #f1c40f;
+      --diamond: #00e5ff;
+    }
+    * { box-sizing: border-box }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      margin: 0; color: var(--text); background: linear-gradient(180deg, #0b0d12, var(--bg));
+    }
+    header {
+      position: sticky; top: 0; z-index: 10; background: rgba(15,17,21,0.85); backdrop-filter: blur(8px);
+      border-bottom: 1px solid #222538;
+    }
+    nav { max-width: 1200px; margin: 0 auto; display: flex; gap: 16px; align-items: center; padding: 12px 20px; flex-wrap: wrap }
+    nav a { color: var(--muted); text-decoration: none; padding: 8px 12px; border-radius: 8px; }
+    nav a:hover { color: var(--text); background: #1f2232 }
+    .brand { font-weight: 700; color: var(--accent); margin-right: 16px }
+    main { max-width: 1200px; margin: 28px auto; padding: 0 20px }
+    section {
+      background: var(--panel); border: 1px solid #222538; border-radius: 14px; margin-bottom: 22px; overflow: hidden;
+    }
+    section header {
+      background: none; border-bottom: 1px solid #222538; position: static;
+    }
+    section h2 {
+      margin: 0; padding: 16px 18px; font-size: 1.2rem; color: var(--accent-2);
+    }
+    .content { padding: 18px }
+    h3 { margin: 16px 0 10px; color: var(--text); font-size: 1.05rem }
+    p { color: var(--muted); line-height: 1.6 }
+    .grid {
+      display: grid; gap: 14px; grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    }
+    .card {
+      background: #1b1e2b; border: 1px solid #272a40; border-radius: 12px; padding: 14px;
+    }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; color: #0f1115; background: var(--accent); font-weight: 700 }
+    .badge.secondary { background: var(--accent-2); color: #081520 }
+    .badge.warn { background: var(--danger) }
+    .list { list-style: none; padding: 0; margin: 10px 0 }
+    .list li { margin: 8px 0; display: grid; grid-template-columns: 120px 1fr; gap: 10px; align-items: start }
+    .label { font-weight: 700; color: var(--text) }
+    .muted { color: var(--muted) }
+    table {
+      width: 100%; border-collapse: collapse; margin-top: 10px; background: #1b1e2b; border: 1px solid #272a40;
+    }
+    th, td { padding: 10px; border-bottom: 1px solid #272a40; text-align: left; }
+    th { color: var(--text); background: #202336; position: sticky; top: 0 }
+    .ore-diamond { color: var(--diamond) }
+    .ore-gold { color: var(--gold) }
+    .ore-redstone { color: #ff5757 }
+    .ore-lapis { color: #5b7cff }
+    .ore-emerald { color: #4efc72 }
+    .ore-iron { color: #cbd1d8 }
+    .ore-coal { color: #888 }
+    .ore-copper { color: #ff9c61 }
+    .flex { display: flex; gap: 12px; flex-wrap: wrap; align-items: center }
+    .stat {
+      background: #141724; border: 1px solid #252942; border-radius: 12px; padding: 12px 14px; min-width: 160px
+    }
+    .stat h4 { margin: 0; font-size: 0.9rem; color: var(--muted) }
+    .stat .value { font-weight: 800; font-size: 1.2rem; color: var(--text) }
+    .chart { width: 100%; height: 240px; background: #141724; border: 1px solid #272a40; border-radius: 12px; margin-top: 10px; position: relative; overflow: hidden }
+    .chart canvas { width: 100%; height: 100% }
+    .pill { display: inline-block; padding: 6px 10px; background: #23273d; border: 1px solid #2e3350; border-radius: 10px; margin: 4px 6px 0 0 }
+    footer { color: var(--muted); padding: 30px 20px; text-align: center }
+    .sources { font-size: 0.85rem; background: #161826; border: 1px solid #262a44; padding: 10px 12px; border-radius: 10px; margin-top: 10px }
+    code { background: #121425; color: #b7c0ff; padding: 2px 6px; border-radius: 6px }
+    .note { border-left: 3px solid var(--accent-2); padding-left: 10px; margin: 10px 0 }
+    .cta { border-top: 1px dashed #2a2e4b; padding-top: 12px; margin-top: 16px }
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <nav aria-label="Main">
+      <span class="brand">Minecraft Pro Hub</span>
+      <a href="#building">Building</a>
+      <a href="#ore-levels">Ore levels</a>
+      <a href="#redstone">Redstone</a>
+      <a href="#survival">Survival</a>
+      <a href="#farming">Farming</a>
+      <a href="#auto-farms">Auto farms</a>
+      <a href="#enchanting">Enchanting</a>
+      <a href="#nether-end">Nether & End</a>
+    </nav>
+  </header>
+by Majorsniper23
+  <main>
+    <!-- Hero -->
+    <section id="hero" aria-label="Intro">
+      <header><h2>Master Minecraft from foundations to finesse</h2></header>
+      <div class="content">
+        <div class="flex">
+          <div class="stat"><h4>Scope</h4><div class="value">Builds • Ores • Redstone • Farms • Survival</div></div>
+          <div class="stat"><h4>Versions</h4><div class="value">Java & Bedrock, 1.20–1.21+</div></div>
+          <div class="stat"><h4>Focus</h4><div class="value">Practical charts & field-tested tips</div></div>
+        </div>
+        <div class="note">
+          This hub is designed for quick reference in the middle of a session and deeper learning when you have time. Save it, tweak it, make it yours.
+        </div>
+      </div>
+    </section>
+
+    <!-- Building -->
+    <section id="building" aria-label="Building">
+      <header><h2>Building charts, palettes, and patterns</h2></header>
+      <div class="content">
+        <div class="grid">
+          <div class="card">
+            <span class="badge">Block palette templates</span>
+            <ul class="list">
+              <li><span class="label">Rustic:</span><span class="muted">Spruce + Stone + Cobble + Dark Oak accents + Moss</span></li>
+              <li><span class="label">Medieval:</span><span class="muted">Oak + Dark Oak + Stone Brick + Deep Slate trim + Lanterns</span></li>
+              <li><span class="label">Modern:</span><span class="muted">Quartz + Concrete (white/gray) + Glass + Sea Lanterns</span></li>
+              <li><span class="label">Desert:</span><span class="muted">Sandstone + Smooth Sandstone + Acacia + Terracotta</span></li>
+              <li><span class="label">Mountain:</span><span class="muted">Spruce + Packed/Polished Ice accents + Basalt + Deep Slate</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge secondary">Pro patterns</span>
+            <ul class="list">
+              <li><span class="label">Depth:</span><span class="muted">Alternate walls: 1 block inset + stair/half-slab trim + window sills</span></li>
+              <li><span class="label">Roofing:</span><span class="muted">A-frame (stairs), dormers (fences + slabs), overhang 1–2 blocks</span></li>
+              <li><span class="label">Framing:</span><span class="muted">Log beams on corners + crossbeams every 5–7 blocks</span></li>
+              <li><span class="label">Texture:</span><span class="muted">Mix 3 blocks: base (70%), detail (20%), highlight (10%)</span></li>
+              <li><span class="label">Lighting:</span><span class="muted">Hidden light: sea lantern under carpet, glow lichen + bone meal</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge warn">Common pitfalls</span>
+            <ul class="list">
+              <li><span class="label">Flat walls:</span><span class="muted">Break planes with stairs/slabs, flower boxes, supports</span></li>
+              <li><span class="label">Monotone:</span><span class="muted">Use gradient: cobble → stone → stone brick → deepslate</span></li>
+              <li><span class="label">Scale:</span><span class="muted">Door/window size proportional to build; keep module 5–9 blocks</span></li>
+              <li><span class="label">Over-detail:</span><span class="muted">Leave negative space; detail focal points only</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="chart">
+          <canvas id="paletteChart" aria-label="Palette balance chart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ores -->
+    <section id="ore-levels" aria-label="Ore levels">
+      <header><h2>Ore levels and mining strategies</h2></header>
+      <div class="content">
+        <p class="muted">
+          Use the table to plan strip mines, branch mines, and caving routes. Layer your storage per ore and chunk-align for beacons and farms.
+        </p>
+        <table aria-label="Best Y-levels for ores">
+          <thead>
+            <tr>
+              <th>Ore</th>
+              <th>Best Y-levels (Overworld)</th>
+              <th>Notes</th>
+              <th>Strategy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ore-coal">Coal</td>
+              <td>High mountains (Y 95+)</td>
+              <td>More common at higher elevations</td>
+              <td>Silk Touch to move veins, Fortune for late-game</td>
+            </tr>
+            <tr>
+              <td class="ore-copper">Copper</td>
+              <td>Around Y 48, especially in dripstone caves</td>
+              <td>Large ore veins generate in dripstone biome</td>
+              <td>Explore dripstone; Fortune III recommended</td>
+            </tr>
+            <tr>
+              <td class="ore-iron">Iron</td>
+              <td>Peaks near Y 16 and in mountainous biomes</td>
+              <td>High elevation iron spawns in mountains</td>
+              <td>Cave exploration; iron farms for bulk</td>
+            </tr>
+            <tr>
+              <td class="ore-lapis">Lapis lazuli</td>
+              <td>Near Y 0 (hidden under stone)</td>
+              <td>Noise-distributed; look a few blocks below stone layers</td>
+              <td>Branch mine at Y 0; Fortune III boosts drops</td>
+            </tr>
+            <tr>
+              <td class="ore-gold ore-gold">Gold</td>
+              <td>Badlands (Y 32–79), lower elsewhere</td>
+              <td>Badlands massively boost gold spawn rates</td>
+              <td>Mine badlands; nether gold for nuggets</td>
+            </tr>
+            <tr>
+              <td class="ore-redstone">Redstone</td>
+              <td>Y −59 to −54</td>
+              <td>Most abundant deep underground</td>
+              <td>Strip mine at Y −59; watch lava at −54 to −48</td>
+            </tr>
+            <tr>
+              <td class="ore-diamond">Diamond</td>
+              <td>Y −59 to −58</td>
+              <td>Best deep-slate layers; lava lakes common</td>
+              <td>Two-high strip mine, doors for air pockets, Fortune III</td>
+            </tr>
+            <tr>
+              <td class="ore-emerald">Emerald</td>
+              <td>Only in mountain biomes</td>
+              <td>Rare single ores in extreme hills variants</td>
+              <td>Trade with villagers for bulk emeralds</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="sources">
+          Sources: 
+        </div>
+
+        <h3>Mining loadouts</h3>
+        <ul class="list">
+          <li><span class="label">Early-game:</span><span class="muted">Iron pickaxe, water bucket, shield, torches ×64, food ×32</span></li>
+          <li><span class="label">Mid-game:</span><span class="muted">Diamond pickaxe (Efficiency IV, Unbreaking III), Fortune III, ender chest</span></li>
+          <li><span class="label">Late-game:</span><span class="muted">Netherite tools, beacon Haste II, TNT for ancient debris in Nether</span></li>
+        </ul>
+
+        <div class="chart">
+          <canvas id="oreChart" aria-label="Relative ore abundance by Y-level"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Redstone -->
+    <section id="redstone" aria-label="Redstone">
+      <header><h2>Redstone circuits and practical builds</h2></header>
+      <div class="content">
+        <div class="grid">
+          <div class="card">
+            <span class="badge">Core components</span>
+            <ul class="list">
+              <li><span class="label">Power:</span><span class="muted">Redstone dust, blocks, torches, repeaters, comparators</span></li>
+              <li><span class="label">Movement:</span><span class="muted">Pistons, sticky pistons, observers, droppers, dispensers</span></li>
+              <li><span class="label">Logic:</span><span class="muted">Torch-based NOT, repeater locks, comparator subtraction</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge secondary">Blueprints</span>
+            <ul class="list">
+              <li><span class="label">Item sorter:</span><span class="muted">Comparator → 3 dust → repeater → locking torch; 41 filters</span></li>
+              <li><span class="label">Door (3×3):</span><span class="muted">Double piston extenders with observer timing</span></li>
+              <li><span class="label">Mob farm:</span><span class="muted">Flush with water or trident killer (Bedrock)</span></li>
+              <li><span class="label">Sugar cane:</span><span class="muted">Observers per stalk; hopper minecart collection</span></li>
+              <li><span class="label">Super smelter:</span><span class="muted">Minecart loaders with furnace arrays (8–32 furnaces)</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge warn">Timing tips</span>
+            <ul class="list">
+              <li><span class="label">Repeater delay:</span><span class="muted">1–4 ticks; chain for longer pulses</span></li>
+              <li><span class="label">Observer clocks:</span><span class="muted">2-tick pulses; buffer with repeaters to stabilize</span></li>
+              <li><span class="label">Chunk borders:</span><span class="muted">Keep contraptions within chunks; add start-up reset</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Survival -->
+    <section id="survival" aria-label="Survival">
+      <header><h2>Survival progression and combat</h2></header>
+      <div class="content">
+        <div class="grid">
+          <div class="card">
+            <span class="badge">Progression milestones</span>
+            <ul class="list">
+              <li><span class="label">Day 1:</span><span class="muted">Starter hut, full stone, shield, food farm, bed</span></li>
+              <li><span class="label">Iron age:</span><span class="muted">Iron tools, portal, enchanting table, nether access</span></li>
+              <li><span class="label">Diamond age:</span><span class="muted">Fortune III, mending, villager trading hall</span></li>
+              <li><span class="label">Endgame:</span><span class="muted">Elytra, beacon, netherite, raid farm</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge secondary">Combat essentials</span>
+            <ul class="list">
+              <li><span class="label">Loadout:</span><span class="muted">Shield, bow (Power V), sword (Sharpness V), totem</span></li>
+              <li><span class="label">Potions:</span><span class="muted">Strength II, Regeneration, Swiftness, Fire Resistance</span></li>
+              <li><span class="label">Positioning:</span><span class="muted">High ground, strafe, block-place to break line of sight</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge warn">Hardcore habits</span>
+            <ul class="list">
+              <li><span class="label">Safety kit:</span><span class="muted">Water bucket, extra food, ender pearls, golden carrots</span></li>
+              <li><span class="label">Failsafes:</span><span class="muted">Bed spawn set, backup gear, golden apples</span></li>
+              <li><span class="label">Navigation:</span><span class="muted">Map, lodestone, compass; portal coords logged</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Farming -->
+    <section id="farming" aria-label="Farming">
+      <header><h2>Farms that scale from early to late game</h2></header>
+      <div class="content">
+        <div class="grid">
+          <div class="card">
+            <span class="badge">Essentials</span>
+            <ul class="list">
+              <li><span class="label">Villager trading:</span><span class="muted">Cure → discount; librarians for mending/unbreaking</span></li>
+              <li><span class="label">Iron farm:</span><span class="muted">Zombie panic + beds + workstations; chunk-aligned</span></li>
+              <li><span class="label">Crops:</span><span class="muted">Carrots/potatoes; bone meal loop via composter</span></li>
+              <li><span class="label">Mob farm:</span><span class="muted">Sky-level or ocean; light up caves to boost rates</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge secondary">Redstone crop farms</span>
+            <ul class="list">
+              <li><span class="label">Sugar cane:</span><span class="muted">Observer triggers pistons; hopper minecart rail</span></li>
+              <li><span class="label">Cactus:</span><span class="muted">Growth breaks on fence posts; water channels</span></li>
+              <li><span class="label">Kelp:</span><span class="muted">Auto-smelt XP loop; fuel-neutral with dried kelp</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge warn">Rate optimization</span>
+            <ul class="list">
+              <li><span class="label">Spawn-proofing:</span><span class="muted">Slabs, buttons, and carpets in caves near base</span></li>
+              <li><span class="label">Tick stability:</span><span class="muted">Avoid unloaded chunk feeds; chunk loaders if allowed</span></li>
+              <li><span class="label">Pathfinding:</span><span class="muted">Short lines, water currents, bubble columns</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW: Auto Farms visual tutorials -->
+    <section id="auto-farms" aria-label="Automatic farms visual tutorials">
+      <header><h2>Visual tutorials for automatic farms</h2></header>
+      <div class="content">
+        <p class="muted">
+          From simple early-game crop automation to reliable mid-game XP grinders and scalable late-game iron factories. Each card includes a visual sketch and build notes.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <span class="badge">Early-game — crop auto-harvest</span>
+            <ul class="list">
+              <li><span class="label">Design:</span><span class="muted">Observer detects growth → piston breaks → hopper minecart collects</span></li>
+              <li><span class="label">Blocks:</span><span class="muted">Observer, piston, rails, hopper, chest, water, farmland</span></li>
+              <li><span class="label">Footprint:</span><span class="muted">Compact 5×7; scalable in modules</span></li>
+              <li><span class="label">Tip:</span><span class="muted">Use daylight sensor or clock to batch-harvest for fewer entity updates</span></li>
+            </ul>
+            <div class="chart"><canvas id="cropFarmCanvas" aria-label="Crop farm layout sketch"></canvas></div>
+          </div>
+
+          <div class="card">
+            <span class="badge secondary">Mid-game — spawner XP grinder</span>
+            <ul class="list">
+              <li><span class="label">Design:</span><span class="muted">Spawner room (9×9) → water streams → drop chute (22–24 blocks) → kill chamber</span></li>
+              <li><span class="label">Blocks:</span><span class="muted">Spawner, slabs, signs/trapdoors, water, hoppers, chests</span></li>
+              <li><span class="label">Footprint:</span><span class="muted">Room 9×9×6; vertical chute beneath</span></li>
+              <li><span class="label">Tip:</span><span class="muted">AFK point within 16 blocks of spawner; lightproof the room</span></li>
+            </ul>
+            <div class="chart"><canvas id="xpFarmCanvas" aria-label="Spawner XP farm sketch"></canvas></div>
+          </div>
+
+          <div class="card">
+            <span class="badge warn">Late-game — iron golem factory</span>
+            <ul class="list">
+              <li><span class="label">Design:</span><span class="muted">Villager pods + zombie scare → golem spawn platform → water push → lava blade collection</span></li>
+              <li><span class="label">Blocks:</span><span class="muted">Beds, workstations, villagers, zombie, trapdoors, water, lava, hoppers</span></li>
+              <li><span class="label">Footprint:</span><span class="muted">Modular 3-pod units; stack vertically or side-by-side</span></li>
+              <li><span class="label">Tip:</span><span class="muted">Chunk-align modules; add start-up reset and day/night handling</span></li>
+            </ul>
+            <div class="chart"><canvas id="ironFarmCanvas" aria-label="Iron farm schematic sketch"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enchanting -->
+    <section id="enchanting" aria-label="Enchanting">
+      <header><h2>Enchanting and gear progression</h2></header>
+      <div class="content">
+        <div class="grid">
+          <div class="card">
+            <span class="badge">Table setup</span>
+            <ul class="list">
+              <li><span class="label">Max power:</span><span class="muted">15 bookshelves; lapis reserve chest</span></li>
+              <li><span class="label">Rerolls:</span><span class="muted">Cycle with wooden tools to rotate enchant pool</span></li>
+              <li><span class="label">Anvil work:</span><span class="muted">Combine lowest cost first; track prior work penalty</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge secondary">Best-in-slot</span>
+            <ul class="list">
+              <li><span class="label">Tools:</span><span class="muted">Efficiency V, Unbreaking III, Mending; Fortune/Silk Touch alternates</span></li>
+              <li><span class="label">Combat:</span><span class="muted">Protection IV, Feather Falling IV, Thorns optional</span></li>
+              <li><span class="label">Utility:</span><span class="muted">Depth Strider III, Respiration III, Frost Walker situational</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge warn">XP & costs</span>
+            <ul class="list">
+              <li><span class="label">XP farms:</span><span class="muted">Ender, blaze, or spawner-based; bottle storage</span></li>
+              <li><span class="label">Books:</span><span class="muted">Villager librarians, fishing early-game</span></li>
+              <li><span class="label">Repair:</span><span class="muted">Mending on all; avoid too many combines</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nether & End -->
+    <section id="nether-end" aria-label="Nether and End">
+      <header><h2>Nether and End progression</h2></header>
+      <div class="content">
+        <div class="grid">
+          <div class="card">
+            <span class="badge">Nether goals</span>
+            <ul class="list">
+              <li><span class="label">Debris:</span><span class="muted">Ancient debris at Y 15; TNT strip mines or beds (Nether)</span></li>
+              <li><span class="label">Bartering:</span><span class="muted">Gold farm → piglin barters for obsidian/pearls/blackstone</span></li>
+              <li><span class="label">Fortress:</span><span class="muted">Blaze rods for brewing; wither skeleton farm later</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge secondary">End goals</span>
+            <ul class="list">
+              <li><span class="label">Dragon:</span><span class="muted">Beds or bow; pillar climbs with water</span></li>
+              <li><span class="label">Elytra:</span><span class="muted">End city raids with shulker box prep</span></li>
+              <li><span class="label">Chorus:</span><span class="muted">Teleportation utility; farm for decorative blocks</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="badge warn">Navigation & safety</span>
+            <ul class="list">
+              <li><span class="label">Portal links:</span><span class="muted">Overworld coords ÷ 8; build portals at exact nether coords</span></li>
+              <li><span class="label">Bridging:</span><span class="muted">Shift + slab edges; fire resistance active</span></li>
+              <li><span class="label">Void risk:</span><span class="muted">Slow falling + ender pearls; carry extra blocks</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="customize" aria-label="Customize">
+      <header><h2>Customize this hub</h2></header>
+      <div class="content">
+        <p class="muted">
+          Want biome-specific palettes, Bedrock-only farms, or datapack tweaks? Tell me your version and playstyle, and I’ll tailor the charts.
+        </p>
+        <div class="cta">
+          <span class="pill">Java vs Bedrock differences</span>
+          <span class="pill">Seed scouting checklist</span>
+          <span class="pill">Chunk alignment helper</span>
+          <span class="pill">Villager trade planner</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Built to be fast, helpful, and expandable. Save locally and edit as your world evolves.
+    </footer>
+  </main>
+
+  <script>
+    // Simple palette balance chart (Base/Detail/Highlight ratio)
+    const paletteCanvas = document.getElementById('paletteChart');
+    const paletteCtx = paletteCanvas.getContext('2d');
+    function drawBar(ctx, x, w, h, color) {
+      ctx.fillStyle = color;
+      ctx.fillRect(x, ctx.canvas.height - h, w, h);
+    }
+    function drawPaletteChart() {
+      const w = paletteCanvas.width = paletteCanvas.clientWidth;
+      const h = paletteCanvas.height = paletteCanvas.clientHeight;
+      paletteCtx.clearRect(0, 0, w, h);
+      const margin = 24;
+      const bw = (w - margin * 2) / 9;
+      const maxH = h - 30;
+
+      const ratios = [
+        { label: 'Base', value: 70, color: '#59a6ff' },
+        { label: 'Detail', value: 20, color: '#6bd679' },
+        { label: 'Highlight', value: 10, color: '#ff5e7c' },
+      ];
+
+      // Draw grid
+      paletteCtx.strokeStyle = '#2a2e4b';
+      for (let i = 0; i < 5; i++) {
+        const y = h - (i * maxH / 4) - 10;
+        paletteCtx.beginPath(); paletteCtx.moveTo(0, y); paletteCtx.lineTo(w, y); paletteCtx.stroke();
+      }
+
+      // Repeat ratios across styles (9 bars total for visual rhythm)
+      const sequence = [...ratios, ...ratios, ...ratios];
+      sequence.forEach((r, i) => {
+        const barH = (r.value / 100) * maxH;
+        drawBar(paletteCtx, margin + i * bw, bw * 0.8, barH, r.color);
+      });
+    }
+    drawPaletteChart();
+    window.addEventListener('resize', drawPaletteChart);
+
+    // Ore abundance sketch (illustrative curve segments, not simulation)
+    const oreCanvas = document.getElementById('oreChart');
+    const oreCtx = oreCanvas.getContext('2d');
+
+    function plotLine(ctx, points, color, width = 2) {
+      ctx.strokeStyle = color; ctx.lineWidth = width;
+      ctx.beginPath();
+      points.forEach(([x, y], i) => {
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+    }
+    function drawOreChart() {
+      const w = oreCanvas.width = oreCanvas.clientWidth;
+      const h = oreCanvas.height = oreCanvas.clientHeight;
+      oreCtx.clearRect(0, 0, w, h);
+
+      // Axes
+      oreCtx.strokeStyle = '#2a2e4b'; oreCtx.lineWidth = 1;
+      oreCtx.beginPath(); oreCtx.moveTo(40, 10); oreCtx.lineTo(40, h - 20); oreCtx.lineTo(w - 10, h - 20); oreCtx.stroke();
+      oreCtx.fillStyle = '#a8adbd'; oreCtx.font = '12px Segoe UI';
+      oreCtx.fillText('Abundance', 8, 18);
+      oreCtx.fillText('Y-level →', w - 70, h - 6);
+
+      // Scale helpers
+      const xScale = (yLevel) => 40 + (yLevel + 64) * (w - 60) / 192; // map -64..128 to canvas
+      const yScale = (abundance) => (h - 20) - abundance * (h - 60);   // 0..1 to height
+
+      // Approximate curves (illustrative):
+      const diamond = [[-64,0.1],[-40,0.25],[-30,0.35],[-20,0.30],[-10,0.25],[-5,0.22],[-2,0.2],[0,0.18],[10,0.1],[20,0.05]].map(([y,a])=>[xScale(y),yScale(a)]);
+      const redstone = [[-64,0.08],[-50,0.22],[-40,0.28],[-30,0.26],[-20,0.2],[-10,0.12],[0,0.05]].map(([y,a])=>[xScale(y),yScale(a)]);
+      const iron = [[-64,0.12],[-10,0.18],[0,0.22],[16,0.30],[32,0.26],[64,0.18],[80,0.22],[100,0.24],[120,0.2]].map(([y,a])=>[xScale(y),yScale(a)]);
+      const coal = [[-64,0.05],[0,0.12],[32,0.2],[64,0.28],[96,0.35],[128,0.40]].map(([y,a])=>[xScale(y),yScale(a)]);
+
+      plotLine(oreCtx, diamond, '#00e5ff', 2);
+      plotLine(oreCtx, redstone, '#ff5757', 2);
+      plotLine(oreCtx, iron, '#cbd1d8', 2);
+      plotLine(oreCtx, coal, '#888', 2);
+
+      oreCtx.fillStyle = '#00e5ff'; oreCtx.fillText('Diamond', 50, 24);
+      oreCtx.fillStyle = '#ff5757'; oreCtx.fillText('Redstone', 120, 24);
+      oreCtx.fillStyle = '#cbd1d8'; oreCtx.fillText('Iron', 190, 24);
+      oreCtx.fillStyle = '#888'; oreCtx.fillText('Coal', 240, 24);
+    }
+    drawOreChart();
+    window.addEventListener('resize', drawOreChart);
+
+    // NEW: Auto farms visual sketches (simple placeholder diagrams)
+    function drawAutoFarmSketch(canvasId, blocks) {
+      const c = document.getElementById(canvasId);
+      const ctx = c.getContext('2d');
+      c.width = c.clientWidth;
+      c.height = c.clientHeight;
+
+      // background frame
+      ctx.fillStyle = '#141724';
+      ctx.fillRect(0, 0, c.width, c.height);
+      ctx.strokeStyle = '#2a2e4b';
+      ctx.strokeRect(12, 12, c.width - 24, c.height - 24);
+
+      // title
+      ctx.fillStyle = '#a8adbd';
+      ctx.font = '14px Segoe UI';
+      ctx.fillText('Layout sketch', 20, 32);
+
+      // simplified blocks
+      const colors = ['#6bd679','#59a6ff','#ff5e7c','#f1c40f','#00e5ff','#b7c0ff'];
+      blocks.forEach((b, i) => {
+        const x = 40 + i * 60;
+        const y = 70 + (i % 2) * 40;
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fillRect(x, y, 40, 24);
+        ctx.fillStyle = '#0f1115';
+        ctx.font = '12px Segoe UI';
+        ctx.fillText(b, x + 4, y + 16);
+      });
+
+      // arrows
+      ctx.strokeStyle = '#6bd679';
+      ctx.beginPath();
+      ctx.moveTo(40, 120); ctx.lineTo(c.width - 40, 120);
+      ctx.stroke();
+      ctx.fillStyle = '#6bd679';
+      ctx.beginPath();
+      ctx.moveTo(c.width - 40, 120);
+      ctx.lineTo(c.width - 50, 114);
+      ctx.lineTo(c.width - 50, 126);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Draw sketches for each farm card
+    drawAutoFarmSketch('cropFarmCanvas', ['Farm','Water','Observer','Piston','Rail','Chest']);
+    drawAutoFarmSketch('xpFarmCanvas', ['Spawner','Water','Chute','Slabs','Hopper','Chest']);
+    drawAutoFarmSketch('ironFarmCanvas', ['Pods','Zombie','Spawn','Water','Lava','Storage']);
+  </script>
+</body>
+</html>
